@@ -14,15 +14,15 @@ import extended_launcher as launcher, lvgl as lv
 3. Use the following commands to your hearts delight. Any parameter can be omitted.
 ```
 #Increases the height of the launcher
-launcher.set_height(500)
+launcher.set_height( 500 )
 
 #Adds a label below the 'Close' button
-launcher.add_text( index = 1, label = 'My Apps', label_color = lv.PALETTE.ORANGE)
+launcher.add_text( index = 1, label = 'My Apps', label_color = lv.PALETTE.ORANGE )
 
 #Adds a button to execute yur chosen app
-launcher.add_app( index = 2, label = 'Bulb File Explorer', path = 'bulb.py', symbol = lv.SYMBOL.EYE_OPEN, symbol_color = lv.PALETTE.TEAL, label_color = lv.PALETTE.TEAL)
+launcher.add_app( index = 2, label = 'Bulb File Explorer', path = 'bulb.py', symbol = lv.SYMBOL.EYE_OPEN, symbol_color = lv.PALETTE.TEAL, label_color = lv.PALETTE.TEAL )
 
 #Adds a label above the preinstalled Systen apps
-launcher.add_text( index = 3, label = "System")
+launcher.add_text( index = 3, label = "System" )
 ```
 
