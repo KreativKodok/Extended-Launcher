@@ -2,7 +2,7 @@
 Add apps to your Launcher!
 Just append the commands below to your boot.py. Any parameter can be omitted):
 
-import extend_launcher as launcher, lvgl as lv
+import extended_launcher as launcher, lvgl as lv
 
 launcher.add_text( index = 1, label = 'My Apps', label_color = lv.PALETTE.GREEN)
 launcher.add_app( index = 2, label = 'Doom', path = 'doom.py', symbol = lv.SYMBOL.PLAY, symbol_color = lv.PALETTE.RED, label_color = lv.PALETTE.ORANGE)
