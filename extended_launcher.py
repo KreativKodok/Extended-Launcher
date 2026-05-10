@@ -24,7 +24,7 @@ override_height = -1
 entries = []
 
 class Launcher_Entry:
-    def __init__( self, index = 1, path = '',symbol=lv.SYMBOL.NEW_LINE, label="", symbol_color = lv.PALETTE.TEAL, label_color = None, is_separator = False):
+    def __init__( self, index = 1, path = '',symbol=lv.SYMBOL.NEW_LINE, label='', symbol_color = lv.PALETTE.TEAL, label_color = None, is_separator = False):
         self.path = path
         self.symbol = symbol
         self.label = label
@@ -33,25 +33,30 @@ class Launcher_Entry:
         self.index = index
         self.is_separator = is_separator
 
-
-def check_launcher(_):
-    def inject_entries(event):
-        if ui.lv_launcher is None:
-            return
-        for entry in entries:
-            if not entry.is_separator:
-                button = ui.lv_launcher.add_button(entry.symbol, entry.label)
-                button.get_child(0).set_style_text_color(lv.palette_main(entry.symbol_color),0)
-                button.get_child(1).set_style_text_color(lv.palette_main(entry.label_color),0)
-                button.move_to_index(entry.index)
-                button.add_event_cb(lambda e: tulip.run(entry.path), lv.EVENT.CLICKED, None) 
-            else:
-                label = ui.lv_launcher.add_text(entry.label)
-                label.set_style_text_color(lv.palette_main(entry.label_color),0)
-                label.move_to_index(entry.index)
-        if override_height > 0:
-            ui.lv_launcher.set_height(override_height)
     
+    
+def inject_entries(event):
+
+            
+    if ui.lv_launcher is None:
+        return
+    for entry in entries:
+        if not entry.is_separator:
+            button = ui.lv_launcher.add_button(entry.symbol, entry.label)
+            button.get_child(0).set_style_text_color(lv.palette_main(entry.symbol_color),0)
+            button.get_child(1).set_style_text_color(lv.palette_main(entry.label_color),0)
+            button.move_to_index(entry.index)
+            path = entry.path # for closure reasons
+            button.add_event_cb(lambda e: tulip.run(path), lv.EVENT.CLICKED, None) 
+        else:
+            label = ui.lv_launcher.add_text(entry.label)
+            label.set_style_text_color(lv.palette_main(entry.label_color),0)
+            label.move_to_index(entry.index)
+    if override_height > 0:
+        ui.lv_launcher.set_height(override_height)
+            
+        
+def check_launcher(_):
     global button_holder
     if ui.repl_screen.launcher_button is not None and ui.repl_screen.launcher_button != button_holder:
         button_holder = ui.repl_screen.launcher_button
@@ -60,11 +65,11 @@ def check_launcher(_):
         ui.lv_launcher.set_height(override_height)
  
     
-def add_app(index = 1, path = '', symbol=lv.SYMBOL.NEW_LINE, label="", symbol_color = lv.PALETTE.TEAL, label_color = None):
+def add_app(index = 1, path = '', symbol=lv.SYMBOL.NEW_LINE, label='', symbol_color = lv.PALETTE.TEAL, label_color = None):
     entries.append(Launcher_Entry(index, path, symbol, label, symbol_color, label_color))
 
-def add_text(index = 1, label = "_____", label_color = lv.PALETTE.TEAL):
-    entries.append(Launcher_Entry(index = index, label = label, label_color = label_color, is_separator = True))
+def add_text(index = 1, label = '_____', label_color = lv.PALETTE.TEAL):
+    entries.append(Launcher_Entry(index, '', '', label, lv.PALETTE.RED, label_color, is_separator = True))
     
 def set_height(height):
     global override_height
